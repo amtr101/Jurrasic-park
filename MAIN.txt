@@ -1,0 +1,213 @@
+IN
+
+mainMenu()
+
+SUBMODULE: mainMenu
+IMPORT: none
+EXPORT: none
+ALGORTHM: 
+
+OUTPUT:= "welcome to the Jurrasic Park, please select an option"
+ thePark = NEW JurassicPark <-none 
+
+ DO
+   OUTPUT:= 
+             "Add dinosuar (1)"
+             "display dinosuars (2)"
+             "calculate park size (3)"
+              "Read in a jurrassic park file (4)"
+              "Write out to jurrasic park file (5)"
+               "Exit(6)"
+
+option = validateOption <-none 
+
+    CASE option 
+      case 1: 
+              createDino<-the Park
+              OUTPUT:= thePark.getCount + "Dinosaurs added" 
+      case 2: 
+            outDinos(thePark)
+       case 3:
+            thePark = readIn<-none
+       case 4:
+             ----------
+        case 5:
+            --------
+        case 6: 
+             OUTPUT:= "exit" 
+
+WHILE option is NOT 6 
+END WHILE
+
+SUBMODULE: createDino 
+IMPORT: thePark
+EXPORT:none 
+
+OUTPUT:= "what is the name of your dinosaur?" 
+dinoName = inputString <-none 
+OUTPUT:=  "what is " + dinoName + "'s mass?" 
+mass = inputReal<-none 
+OUTPUT:= what is " + dinoName + "'s Gene sequence?"
+seq = inputString<-none 
+OUTPUT:= "what kind of Dinosaur is " + dinoName +"?"
+OUTPUT:= "(1) Tyrannosaurus rex"
+OUTPUT:= Plesiosaurus"
+OUTPUT:=(3) Triceratops"
+type = validateType<-none 
+
+CASE type 
+ case 1:
+   OUTPUT:="what is "+ dinoName +"'s bite force?" 
+   inBite = inputReal<-none
+   thePark.setDinosaurs<-new TREXClass<-dinoName, mass, inBite, geneSeq
+ case 2:
+    OUTPUT:="does "+ dinoName +" have a Tail Finn? (1) yes, (2) no"
+     tail = yesNo<-none 
+     thePark.setDinosaurs<-new PLESIOClass<-dinoName, mass, tail, geneSeq  
+ case 3:
+    OUTPUT:="how many horns does "+ dinoName + "have?" 
+     horns = inputInt<-none
+     thePark.setDinosaurs<-new TRIClass<-dinoName, mass, horns, geneSeq
+ END CASE 
+
+SUBMODULE outDino
+IMPORT: thePark
+EXPORT: none
+ALGORTHM:
+    output = thePark.getDino
+    FOR (i < thePark.getCount  INC BY 1)
+      if output[i][0] is NOT null 
+        OUTPUT:= (i +"\n" + output[i][0].toString + "\n" ) 
+    END FOR
+  
+SUBMODULE: readIn
+IMPORT:none
+EXPORT:none
+ALGORTHM:
+  constructed:= true
+  count:= 1000
+  
+  OUTPUT:= "please enter name of file"
+  fileName:= inputString<-none
+  filRdr:= new ReadFile<-fileName, count
+   dinos:= filRdr.ReadinDino 
+   filePark:= NEW JurassicPark<- dinos, constructed, count
+
+SUBMODULE: calcPark
+IMPORT:thePark
+EXPORT:none
+ALGORTHM: 
+  totalSize = 0
+ 
+(Array of Dinosaurs) enclosure = thePark.getDino 
+ 
+ FOR (i < thePark.getCount INC BY 1)
+  IF elclosure[i][0] is NOT null 
+    totalSize:= enenclosure[i][0].calcEnclosureSize 
+     totalSize:= totalSize + totalSize
+  END IF
+
+   OUTPUT:= "Total size of the park is " + totalSize
+
+SUBMODULE: inputInt
+IMPORT: none
+EXPORT:value
+
+value:= 0 
+
+TRY
+  INPUT = value 
+ CATCH  input mismatch exception 
+  OUTPUT:="invalid input" 
+END TRY 
+ 
+
+UBMODULE: yesNo
+IMPORT: none
+EXPORT: tail
+ALGORTHM: 
+
+INPUT:= select 
+ tail:= true
+ 
+IF select  Equals 1
+  tail:= true 
+  ELSE IF Equals 2
+    tail:= false
+   END IF
+ END IF
+
+SUBMODULE: validateType
+IMPORT: none
+EXPORT: none
+ALGOTHM: 
+
+input = 0 
+
+TRY
+  INPUT:= input
+ 
+  WHILE input <1 OR input > 3
+   OUTPUT:= "invalid input, try again"
+   END WHILE 
+
+CATCH input Mismatch Exception 
+   OUTPUT:= "invalid input"
+ END TRY 
+
+SUBMODULE: inputString
+IMPORT: none
+EXPORT: value
+  value = " "
+ 
+TRY
+  INPUT:= value
+ CATCH input Mismatch Exception 
+  OUTPUT:= "invalid input"
+ END TRY
+
+
+SUBMODULE: inputReal
+IMPORT: none
+EXPORT: value
+
+value = 0
+
+TRY
+  INPUT:= value
+ CATCH input Mismatch Exception 
+   OUTPUT:= "invalid input" 
+ END TRY
+
+
+SUBMODULE: validateOption
+IMPORT: none 
+EXPORT: input
+
+input = 0
+
+TRY
+  INPUT:= input  
+  CATCH input Mismatch Exception 
+   OUTPUT:= "invalid input" 
+ END TRY 
+
+SUBMODULE: validateOption
+IMPORT: none 
+EXPORT: input 
+
+input = 0
+
+TRY
+  INPUT:= input 
+ WHILE input < 1 OR input >6 
+   OUTPUT:= "invalid input, try again"
+    INPUT:= input 
+  END WHILE
+CATCH input Mismatch Exception 
+   OUTPUT:= "invalid input" 
+ END TRY
+
+
+END MAIN 
+

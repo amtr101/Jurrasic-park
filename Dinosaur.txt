@@ -1,0 +1,98 @@
+BSTRACT CLASS Dinosaur 
+
+CLASS FEILDS:
+name
+mass
+sequence 
+
+DEFAULT CONSTRUCTOR
+IMPORT: none 
+EXPORT: none 
+ALGORTHM
+
+name:= "jerry" 
+ mass:= 550.5
+ sequence = new Genome<-none 
+
+ALTERNATE CONSTRUCTOR 
+IMPORT: inName, inMass , inSequence
+EXPORT:none 
+ALGORTHM:
+   IF validateName<-inName AND validateMass<-inMass
+      name = inName 
+      mass = inMass 
+      sequence = new Genome<-inSequence
+   ELSE 
+      THROW NEW Illegal Arguemnt exception 
+      OUTPUT:=  "invalid imports" 
+  END IF
+
+COPY CONSTRUCTOR
+IMPORT: inDino
+EXPORT: none
+ALGORTHM
+  name:= inDino.getName 
+  mass:= inDino.getMass 
+
+SUBMODULE: setName
+IMPORT: inName
+EXPORT: none 
+ALGORTHM 
+  name:= inName 
+
+
+SUBMODULE: setMass
+IMPORT: inMass
+EXPORT: none 
+ALGORTHM
+  mass = inMass
+
+ 
+SUBMODULE: getName
+IMPORT: none
+EXPORT: name 
+ALGORTHM: 
+  returns name    
+
+
+
+SUBMODULE: getMass
+IMPORT: none
+EXPORT: name 
+ALGORTHM: 
+  returns mass 
+
+SUBMODULE: EQUALS
+IMPORT: inObject
+EXPORT: same
+ALGORTHM:
+   same = fale 
+ if inObject ISA Dinosaur 
+   inDino = inObject(convert to Dinosaur)
+    same = inDino.getName 
+    mass = inDino.getMass
+ END IF
+
+SUBMODULE: toString
+IMPORT: none
+EXPORT: outString
+ outString = name + " " + mass + " " + sequence
+
+//PRIVATE SUBMODULES
+
+SUBMODULE: validateName 
+IMPORT: inName
+EXPORT: valid
+ALGORTHMM
+  valid = inName is NOT null 
+
+SUBMODULE: validateMass
+IMPORT: inMass
+EXPORT: valid
+ALGORTHM:
+  valid:= inMass > 0
+
+//ABSTRACT METHODS 
+
+calcEnclosureSize 
+clone 

@@ -1,0 +1,92 @@
+LASS ReadFile
+
+CONSTANT MAXSIZE = 1000
+
+CLASS FEILDS
+maxSize 
+fileName 
+
+DEFAULT CONSTRUCTOR
+IMPORT: none
+EXPORT: none
+ALGORTHM:
+      maxSize = 1000 
+      fileName = "fileName.txt"
+
+ALTERNATE CONSTRUCTOR
+IMPORT: inFilename, inMaxSize
+EXPORT:none
+ALGORTHM: 
+  fileName = inFileName; 
+   maxSize = inMaxSize; 
+
+COPY CONSTRUCTOR
+IMPORT: none
+EXPORT: none
+ALGORTHM: 
+   fileName = inRead.getName
+    maxSize = inRead.getSize 
+
+SUBMODULE: getName
+IMPORT: none
+EXPORT: none
+ returns name
+
+SUBMODULE: getSize
+IMPORT: none
+EXPORT: none
+ returns maxSize 
+
+SUBMODULE: ReadFile
+IMPORT: none
+EXPORT: none 
+  (Array of Dinosaur) dinoFile = null 
+ 
+TRY 
+  OPEN FILE 
+  FOR (i TO length of dinoFile INC BY 1)
+    stringLine = processLine <-line
+    dinoSplit = processDino<-stringLine
+    dinoFile[1][0] = dinoSplit
+    line = read file
+  END FOR
+ CATCH input output excpetion 
+    if file is NOT null 
+    OUTPUT:=   "error in file processing"
+ END TRY 
+
+SUBMODULE: processLine
+IMPORT: line
+EXPORT:DinoLine
+ALGORTHM:
+ DinoLine = line SPLIT ON < /> 
+
+
+SUBMODULE: processDinos
+IMPORT: stringLine
+EXPORT: DINOS
+ALGORTHM:
+  dino = null 
+  tailFin = true 
+  type = stringLine at [0]
+  name = stringLine at [1]
+  mass = stringLine at [2]
+  seq = stringLine at [3]
+  gen = new Genome object 
+
+ IF stringLine at [0] = "TRI" 
+      numHorns = stringLine at [4]
+       dino = new TRIClass <-name, mass, numHorns, gen 
+  ELSE IF stringLine at [0] = "TREX"
+        biteForce = stringLine at [4]
+        dino = new TREXClass<-name, mass, biteForce, gen
+     ELSE IF stringLine at [0] = PLESIO
+           IF stringLine at 4 = TRUE
+              tailFin = true
+           ELSE 
+              tailFin = false 
+            dino = new PLESIOClass<-name, mass, tailFin, gen 
+            END IF
+          END IF
+        END IF
+      END IF

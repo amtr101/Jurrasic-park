@@ -1,0 +1,89 @@
+CLASS: TREX inhereits from DinoClass
+
+CLASS FEILDS: 
+ 
+biteForce 
+
+
+CONSTRUCTORS: 
+
+Default: 
+  IMPORT: none 
+  EXPORT: none 
+  ALGORTHM: 
+   super.defaultConstructor.name
+   super.defaultCOnstructor.mass  
+   biteForce:= 501.0 
+    
+
+Alternate: 
+  IMPORT: inBite, super.name, super.mass
+  EXPORT: none 
+  ALGORTHM: 
+    IF (validateBite<-inBite) 
+       biteForce:= inBite 
+    ELSE
+       THROW invalid argument exception 
+    END IF 
+
+copy: 
+
+IMPORT: inTREX (TREXclass)
+EXPORT: none
+ALGORITHM:  
+    biteForce:= inTREX.getBite <- none
+
+MUTATORS:  
+
+
+SUBMODULE: setBiteForce
+IMPORT: inBite
+EXPORT: none
+ALGORITHM: 
+   IF (validateMass<- inBite) THEN
+         biteForce := inBite
+           ELSE
+                THROW invalid argument exception
+           END IF   
+
+ACCESSORS 
+
+SUBMODULE: getBite
+
+    IMPORT: none
+    EXPORT: biteForce 
+
+
+SUBMODULE: equals
+IMPORT: inObj (Object)
+EXPORT: same (boolean)
+ALGORITHM: 
+same := FALSE
+   IF (inObj ISA TREX) THEN
+            inTREX:= (Convert to TREX)inObj
+             same := (super.equals) AND(mass ect)  
+               
+    ENDIF
+
+SUBMODULE: clone
+ IMPORT: none 
+ EXPORT: cloneTREX (Object) 
+ ALGORITHM: 
+  CONSTRUCT cloneTREX USING ALTERNATE CONSTRUCTOR WITH
+               name, mass, bite
+
+SUBMODULE toString
+IMPORT: none 
+EXPORT: str
+ALGORTHM: 
+str = super.toString + bite
+
+PRIVATE SUBMODULES
+ 
+
+SUBMODULE: validateBite
+ IMPORT: inBite
+ EXPORT: valid (boolean) 
+   valid := inBite > 500.5 
+
+

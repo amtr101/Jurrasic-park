@@ -1,0 +1,116 @@
+LASS JurassicPark 
+
+CLASS FEILDS
+
+ dinosaurs
+constructed
+count 
+
+DEFAULT CONSTRUCTOR
+IMPORT: none 
+EXPORT: none
+ALGOTHM:
+   (Array of Dinosaur)  dinosaurs[100][1]
+    constructed = true 
+    count = 0 
+
+ALTERNATE CONSTRUTOR
+IMPORT: Dinosaurs, inConstructed, inCount 
+EXPORT: none 
+ALGORTHM:
+  dinosaurs = inDino 
+    constructed = inConstructed
+    count = inCount 
+
+COPY CONSTRUCTOR
+IMPORT: none 
+EXPORT: none 
+ALGORHTM:
+   dinosaurs = inPark.getDino  
+   constructed = inPark.getConstruct
+   count = inPark.getCount 
+
+//MUTATORS  
+
+SUBMODULE: setDinosarus 
+IMPORT: inDinosuars 
+EXPORT: none 
+ALGORTHM:
+  IF validateDino<-inDino
+     dinosaurs[getCount][0] = inDino
+      count INT BY 1 
+  ELSE 
+   THROW illegal Argument Exception 
+   OUTPUT:= "invalid dinosaurs" 
+ END IF
+
+SUBMODULE: getDino
+IMPORT: none
+EXPORT: none
+ALGORTHM 
+ returns dinosaurs  
+
+SUBMODULE: setConstructed 
+IMPORT: inConstructed 
+EXPORT: none 
+ALGOTHM:
+  returns constructed
+
+SUBMODULE: setCount
+IMPORT: inCount
+EXPORT: none
+ALGORTHM:
+  IF validateCount<-inCount
+    count = inCount
+  ELSE 
+    THROW illegal Argument Exception 
+   OUTPUT:= "invalid dinosaurs" 
+ END IF
+
+SUBMODULE: getCount
+IMPORT: none
+EXPORT: none
+ALGORTHM:
+ returns count
+
+SUBMODULE EQUALS:
+IMPORT: inObject 
+EXPORT: none 
+ALGORTHM:
+  isEqual = false
+IF inObject ISA JurassicPark
+  inPark = inObject (convert to JurassicPark)
+      IF construxted = inPark.getConstruct
+        IF count = inPark.getCount
+           isEqual = true
+         END IF
+       END IF
+    END IF 
+
+SUBMODULE: clone
+IMPORT: none
+EXPORT: JurassicPark
+ALGORTHM:
+  Create clone of current state of object 
+
+SUBMODULE: toString
+IMPORT:none
+EXPORT: outString
+   outString = count + " " + constructed
+
+//PRIVATE VALIDATION SUBMODULES
+
+SUBMODULE: validateDino 
+IMPORT: inDinosaurs
+EXPORT: valid 
+   valid = inDinosaurs NOT null
+
+SUBMODULE: validateCount
+IMPORT: inCount
+EXPORT: valid
+  valid = inCount > 0
+
+SUBMODULE: validateConstruct
+IMPORT: inConstruct 
+EXPORT: valid
+  valid = inConstruct = true OR inConstruct = false 

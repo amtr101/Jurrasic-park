@@ -1,0 +1,96 @@
+LASS Genome
+
+CLASS FEILDS 
+
+sequence
+
+DEFAULT CONSTRUCTOR
+IMPORT: none
+EXPORT: none
+ALGORTHM: 
+   sequence = "AAA"
+
+ALTERNATE CONSTRUCTOR
+IMPORT: inSequence
+EXPORT: none
+ALGORTHM: 
+    sequence = "AAA"
+
+ALTERNATE CONSTRUCTOR
+IMPORT: inSequence
+EXPORT: none
+ALGORTHM: 
+    IF validateGene<-inSequence
+      
+          sequence = inSequence 
+      
+      ELSE throw IllegalArgumentException
+        OUTPUT:= "invalid sequence value" 
+      END IF 
+
+
+COPY CONSTRUCTOR
+IMPORT: inGenome
+EXPORT: none
+ALGORTHM:
+  sequence = inGenome.getGene
+
+SUBMODULE: setSequence
+IMPORT: inSequence
+EXPORT: none
+ALGORTHM: 
+      if validateGene<-inSequence
+         sequence = inSequence 
+      
+      ELSE throw IllegalArgumentException
+        OUTPUT:= "invalid sequence value" 
+      END IF
+
+
+//ACESSORS
+
+SUBMODULE: getGene
+IMPORT: none
+EXPORT: sequence
+  returns sequence 
+
+EAQUALS
+IMPORT: inObj 
+EXPORT: same
+ALGORTHM:
+   isEqual = false
+
+IF inObject ISA Genome 
+   inGene = inObject(convert to Genome)
+    isEqual = true; 
+ ENDIF 
+
+SUBMODULE: clone
+IMPORT: none
+EXPORT: Genome
+ALGORTHM
+  create clone of current object state  
+
+SUBMODULE:toString
+IMPORT:none
+EXPORT: outString
+ALGORTHM: 
+  outString = sequence
+
+//PRIVATE SUBMODULE 
+
+SUBMODULE: validateGene
+IMPORT: inSequence
+EXPORT: valid
+ 
+ valid = true
+ FOR ( i < Length of sequence  i INC BY 1)
+     IF inSequence at (i) is NOT 'A'
+            IF inSequence at (i) is NOT 'G'
+             IF inSequence at (i) is NOT 'T'  
+               IF inSequence at (i) is NOT 'C'
+            valid = false
+                END IF
+              END IF
+            END IF
+

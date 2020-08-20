@@ -1,0 +1,87 @@
+CLASS: TRI inherits from Dinosaur
+
+CLASS FEILDS: 
+
+numHorns 
+
+CONSTRUCTORS: 
+
+Default: 
+  IMPORT: none 
+  EXPORT: none 
+  ALGORTHM: 
+    DEFAULT CONSTRUCTOR for super class Dinosaur 
+    numHorns:= 3 
+
+Alternate: 
+  IMPORT: inName, inMass,inNumHorns, inSequence
+  EXPORT: none 
+  ALGORTHM: 
+    IF (validateNumHorns<-inNumHorns) 
+       numHorns:= inNumhorns 
+    ELSE
+       THROW invalid argument exception 
+    END IF 
+
+copy: 
+
+IMPORT: inTRI (TRIclass)
+EXPORT: none
+ALGORITHM:  
+    super <-inTRI
+    numHorns:= inTRI.getNumHorns <- none
+
+MUTATORS: 
+ 
+
+SUBMODULE: setNumHorns
+IMPORT: inNumHorns
+EXPORT: none
+ALGORITHM: 
+   IF (validateNumHorns<- inNumHorns) THEN
+         numHorns := inNumHorns
+           ELSE
+                THROW invalid argument exception
+           END IF   
+
+ACCESSORS 
+
+SUBMODULE: getNumHorns
+
+    IMPORT: none
+    EXPORT: numHorns
+
+
+SUBMODULE: equals
+IMPORT: inObj (Object)
+EXPORT: same (boolean)
+ALGORITHM: 
+same := FALSE
+   IF (inObj ISA TRI) THEN
+           inTRI:= (Convert to TRI)inObj
+           (numHorns EQUALS inTRI.getNumHorns <-none) 
+    ENDIF
+
+SUBMODULE: clone
+ IMPORT: none 
+ EXPORT: cloneTRI (Object) 
+ ALGORITHM: 
+  CONSTRUCT cloneTRI USING ALTERNATE CONSTRUCTOR WITH
+               name, mass, numHorns
+
+SUBMODULE toString
+IMPORT: none 
+EXPORT: str
+ALGORTHM: 
+str = super.toString + numHorns
+
+PRIVATE SUBMODULES
+ 
+ 
+
+SUBMODULE: validateNumHorns
+ IMPORT: inNumHorns 
+ EXPORT: valid (boolean) 
+   valid := (inNumHorns >= 3 AND inNumHorns MOD 3 = 0) 
+
+
